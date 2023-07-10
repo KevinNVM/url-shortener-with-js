@@ -1,6 +1,10 @@
+require("dotenv")();
+
 const express = require("express");
 const validUrl = require("valid-url");
-const { writeFileSync, readFileSync } = require("fs");
+const { writeFileSync, readFileSync } = require("@cyclic.sh/s3fs")(
+  process.env.S3_AWS_BUCKET
+);
 
 const { generateUid } = require("./utils");
 
