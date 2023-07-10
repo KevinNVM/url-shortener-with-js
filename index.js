@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const validUrl = require("valid-url");
-const { writeFileSync, readFileSync } = require("@cyclic.sh/s3fs")(
+const { writeFileSync, readFileSync, existsSync } = require("@cyclic.sh/s3fs")(
   process.env.S3_AWS_BUCKET
 );
 
@@ -22,6 +22,10 @@ app.get("/", (req, res) => {
 });
 
 app.post("/short", (req, res) => {
+  if (!existsSync("./db.json")) {
+    writeFileSync("./db.json", "[]");
+  }
+
   const { url } = req.body;
 
   if (!url || !validUrl.isUri(url)) {
