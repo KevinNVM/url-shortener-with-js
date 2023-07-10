@@ -1,4 +1,4 @@
-require("dotenv")();
+require("dotenv").config();
 
 const express = require("express");
 const validUrl = require("valid-url");
